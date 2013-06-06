@@ -1,4 +1,4 @@
-﻿@model Messi.Models.User
+﻿@model Messi.ViewModels.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -22,6 +22,14 @@
             <li>
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.CountryName)
+                @Html.TextBoxFor(m => m.CountryName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.DisplayName)
+                @Html.TextBoxFor(m => m.DisplayName)
             </li>
         </ol>
         <input type="submit" value="Register" />

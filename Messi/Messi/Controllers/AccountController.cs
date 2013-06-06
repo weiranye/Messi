@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
+using Messi.ViewModels;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using Messi.Filters;
@@ -32,9 +34,22 @@ namespace Messi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(User model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-           
+            if (ModelState.IsValid)
+            {
+                using (var messi = new Models.Messi())
+                {
+                    var user = (from u in messi.Users
+                               where u.UserName == model.UserName && u.Password==model.Password
+                               select u).FirstOrDefault();
+                    if (user != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(user.UserName,true);
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+            }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
@@ -47,8 +62,8 @@ namespace Messi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            
 
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -67,15 +82,40 @@ namespace Messi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(User model)
+        public ActionResult Register(RegisterViewModel model)
         {
-            
 
+            if (ModelState.IsValid)
+            {
+                using (var messi = new Models.Messi())
+                {
+                    var user = (from u in messi.Users
+                                where u.UserName == model.UserName
+                                select u).FirstOrDefault();
+                    if (user == null)
+                    {
+                        user = new Models.User()
+                            {
+                                CountryName = model.CountryName,
+                                UserName = model.UserName,
+                                Password = model.Password,
+                                DisplayName = model.DisplayName
+                            };
+                        messi.Entry(user).State=EntityState.Added;
+                        messi.SaveChanges();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "UserName already taken!!!");
+                        return View(model);
+                    }
+                }
+            }
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-    
+
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
