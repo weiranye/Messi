@@ -45,7 +45,7 @@ namespace Messi.Controllers
                                select u).FirstOrDefault();
                     if (user != null)
                     {
-                        FormsAuthentication.SetAuthCookie(user.UserName,true);
+                        FormsAuthentication.SetAuthCookie(user.UserName+"|"+user.UserId,true);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -106,7 +106,7 @@ namespace Messi.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "UserName already taken!!!");
+                        ModelState.AddModelError("", "User Name already taken!!!");
                         return View(model);
                     }
                 }
