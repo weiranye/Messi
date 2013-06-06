@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MessiModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MessiModelStoreContainer">
+          <EntitySet Name="Game" EntityType="MessiModel.Store.Game" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Round" EntityType="MessiModel.Store.Round" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="MessiModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserPoint" EntityType="MessiModel.Store.UserPoint" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Round_Game" Association="MessiModel.Store.FK_Round_Game">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="Round" EntitySet="Round" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Round_User" Association="MessiModel.Store.FK_Round_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Round" EntitySet="Round" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPoint_Game" Association="MessiModel.Store.FK_UserPoint_Game">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="UserPoint" EntitySet="UserPoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPoint_User" Association="MessiModel.Store.FK_UserPoint_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPoint" EntitySet="UserPoint" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Round">
+          <Key>
+            <PropertyRef Name="RoundId" />
+          </Key>
+          <Property Name="RoundId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="RoundNum" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar(max)" Nullable="false" />
+          <Property Name="Password" Type="varchar(max)" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar(max)" Nullable="false" />
+          <Property Name="CountryName" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPoint">
+          <Key>
+            <PropertyRef Name="UserPointId" />
+          </Key>
+          <Property Name="UserPointId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="GamePoints" Type="int" Nullable="false" />
+          <Property Name="ProPoints" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Round_Game">
+          <End Role="Game" Type="MessiModel.Store.Game" Multiplicity="1" />
+          <End Role="Round" Type="MessiModel.Store.Round" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="Round">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Round_User">
+          <End Role="User" Type="MessiModel.Store.User" Multiplicity="1" />
+          <End Role="Round" Type="MessiModel.Store.Round" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Round">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPoint_Game">
+          <End Role="Game" Type="MessiModel.Store.Game" Multiplicity="1" />
+          <End Role="UserPoint" Type="MessiModel.Store.UserPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="UserPoint">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPoint_User">
+          <End Role="User" Type="MessiModel.Store.User" Multiplicity="1" />
+          <End Role="UserPoint" Type="MessiModel.Store.UserPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPoint">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MessiModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Messi" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Games" EntityType="MessiModel.Game" />
+          <EntitySet Name="Rounds" EntityType="MessiModel.Round" />
+          <EntitySet Name="Users" EntityType="MessiModel.User" />
+          <EntitySet Name="UserPoints" EntityType="MessiModel.UserPoint" />
+          <AssociationSet Name="FK_Round_Game" Association="MessiModel.FK_Round_Game">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="Round" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPoint_Game" Association="MessiModel.FK_UserPoint_Game">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="UserPoint" EntitySet="UserPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Round_User" Association="MessiModel.FK_Round_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Round" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPoint_User" Association="MessiModel.FK_UserPoint_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPoint" EntitySet="UserPoints" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rounds" Relationship="MessiModel.FK_Round_Game" FromRole="Game" ToRole="Round" />
+          <NavigationProperty Name="UserPoints" Relationship="MessiModel.FK_UserPoint_Game" FromRole="Game" ToRole="UserPoint" />
+        </EntityType>
+        <EntityType Name="Round">
+          <Key>
+            <PropertyRef Name="RoundId" />
+          </Key>
+          <Property Name="RoundId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="GameId" Type="Int32" Nullable="false" />
+          <Property Name="RoundNum" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="MessiModel.FK_Round_Game" FromRole="Round" ToRole="Game" />
+          <NavigationProperty Name="User" Relationship="MessiModel.FK_Round_User" FromRole="Round" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Rounds" Relationship="MessiModel.FK_Round_User" FromRole="User" ToRole="Round" />
+          <NavigationProperty Name="UserPoints" Relationship="MessiModel.FK_UserPoint_User" FromRole="User" ToRole="UserPoint" />
+        </EntityType>
+        <EntityType Name="UserPoint">
+          <Key>
+            <PropertyRef Name="UserPointId" />
+          </Key>
+          <Property Name="UserPointId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="GameId" Type="Int32" Nullable="false" />
+          <Property Name="GamePoints" Type="Int32" Nullable="false" />
+          <Property Name="ProPoints" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="MessiModel.FK_UserPoint_Game" FromRole="UserPoint" ToRole="Game" />
+          <NavigationProperty Name="User" Relationship="MessiModel.FK_UserPoint_User" FromRole="UserPoint" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Round_Game">
+          <End Role="Game" Type="MessiModel.Game" Multiplicity="1" />
+          <End Role="Round" Type="MessiModel.Round" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="Round">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPoint_Game">
+          <End Role="Game" Type="MessiModel.Game" Multiplicity="1" />
+          <End Role="UserPoint" Type="MessiModel.UserPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="UserPoint">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Round_User">
+          <End Role="User" Type="MessiModel.User" Multiplicity="1" />
+          <End Role="Round" Type="MessiModel.Round" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Round">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPoint_User">
+          <End Role="User" Type="MessiModel.User" Multiplicity="1" />
+          <End Role="UserPoint" Type="MessiModel.UserPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPoint">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MessiModelStoreContainer" CdmEntityContainer="Messi">
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="MessiModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rounds">
+            <EntityTypeMapping TypeName="MessiModel.Round">
+              <MappingFragment StoreEntitySet="Round">
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="RoundNum" ColumnName="RoundNum" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MessiModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPoints">
+            <EntityTypeMapping TypeName="MessiModel.UserPoint">
+              <MappingFragment StoreEntitySet="UserPoint">
+                <ScalarProperty Name="UserPointId" ColumnName="UserPointId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="GamePoints" ColumnName="GamePoints" />
+                <ScalarProperty Name="ProPoints" ColumnName="ProPoints" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
