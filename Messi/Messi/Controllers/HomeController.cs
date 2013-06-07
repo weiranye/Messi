@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Messi.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,8 +14,10 @@ namespace Messi.Controllers
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
+            List<Tuple<string, string, string>> newGameObj = GameLogic.GetWordDefImageList();
+
             return View();
         }
-       
+
     }
 }

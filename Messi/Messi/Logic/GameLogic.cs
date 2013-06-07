@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,53 @@ namespace Messi.Logic
     public class GameLogic
     {
         // <Word, Definition, ImageUrl>
-        public List<Tuple<string, string, string>> GetWordDefImageList()
+        public static List<Tuple<string, string, string>> GetWordDefImageList()
         {
-            return null;
+            List<Tuple<string, string, string>> result = new List<Tuple<string, string, string>>();
+
+            // get 4 random words
+            List<string> fourWords = new List<string>();
+            while (fourWords.Count < 4)
+            {
+                Random rnd = new Random();
+                string randomWord = WordRepo.Words[rnd.Next(0, WordRepo.Words.Count)];
+                if (!fourWords.Contains(randomWord))
+                {
+                    fourWords.Add(randomWord);
+                }
+            }
+
+            string imageUrl = "";
+            string definition = "";
+            for (int i = 0; i < 4; i++)
+            {
+                // get imageUrl
+                DkApiResult dkResult = Helper.ImageLookUp(fourWords[i]);
+                if (dkResult.total < 1)
+                {
+                    throw new Exception("Number of images for this word is less than 1. Word: " + fourWords[i]);
+                }
+                else
+                {
+                    imageUrl = dkResult.images[0].url;
+                }
+
+                // get definition
+                JObject lmResult = Helper.DefinitionLookUpObj(fourWords[i]);
+                JToken lmEntry = (lmResult["Entries"]["Entry"] is JArray) ? lmResult["Entries"]["Entry"][0] : lmResult["Entries"]["Entry"];
+                JToken lmSense = (lmEntry["Sense"] is JArray) ? lmEntry["Sense"][0] : lmEntry["Sense"];
+                JToken lmDEF = lmSense["DEF"];
+                if (lmDEF==null)
+                {
+                    JToken lmSubsense = (lmSense["Subsense"] is JArray) ? lmSense["Subsense"][0] : lmSense["Subsense"];
+                    lmDEF = lmSubsense["DEF"];
+                }
+                definition = lmDEF["#text"].ToString();
+
+                // done
+                result.Add(new Tuple<string, string, string>(fourWords[i], imageUrl, definition));
+            }
+            return result;
         }
 
         // returns GameId
