@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Messi.Models;
 
 namespace Messi.Logic
 {
@@ -46,7 +47,7 @@ namespace Messi.Logic
                 JToken lmEntry = (lmResult["Entries"]["Entry"] is JArray) ? lmResult["Entries"]["Entry"][0] : lmResult["Entries"]["Entry"];
                 JToken lmSense = (lmEntry["Sense"] is JArray) ? lmEntry["Sense"][0] : lmEntry["Sense"];
                 JToken lmDEF = lmSense["DEF"];
-                if (lmDEF==null)
+                if (lmDEF == null)
                 {
                     JToken lmSubsense = (lmSense["Subsense"] is JArray) ? lmSense["Subsense"][0] : lmSense["Subsense"];
                     lmDEF = lmSubsense["DEF"];
@@ -60,9 +61,18 @@ namespace Messi.Logic
         }
 
         // returns GameId
-        public int AddGame(CreateGameObject obj)
+        public static int AddGame(CreateGameObject obj)
         {
-            return 0;
+            using (Messi.Models.Messi db = new Models.Messi())
+            {
+                Game newGame = new Game()
+                {
+                    StatusId = 1
+                };
+                db.Games.Add(newGame);
+                db.SaveChanges();
+                return newGame.GameId;
+            }
         }
 
         public int AddRound(int gameId, int roundNum, int userId, string recognizedText)

@@ -10,13 +10,9 @@ namespace Messi.Controllers
     [Authorize]
     public class HomeController : BaseController
     {
-        
+
         public ActionResult Index()
         {
-            
-
-            List<Tuple<string, string, string>> newGameObj = GameLogic.GetWordDefImageList();
-
             return View();
         }
 
