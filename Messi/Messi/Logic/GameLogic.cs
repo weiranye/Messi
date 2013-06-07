@@ -33,31 +33,53 @@ namespace Messi.Logic
             string definition = "";
             for (int i = 0; i < 4; i++)
             {
-                // get imageUrl
-                DkApiResult dkResult = Helper.ImageLookUp(fourWords[i]);
-                if (dkResult.total < 1)
+                // try cache first
+                using (Models.Messi messi = new Models.Messi())
                 {
-                    throw new Exception("Number of images for this word is less than 1. Word: " + fourWords[i]);
-                }
-                else
-                {
-                    imageUrl = dkResult.images[0].url;
-                }
+                    string word = fourWords[i];
+                    ApiCache cache = messi.ApiCaches.Where(a => a.Word.Equals(word)).FirstOrDefault();
+                    if (cache != null)
+                    {
+                        imageUrl = cache.ImageUrl;
+                        definition = cache.Definition;
+                    }
+                    else
+                    {
+                        // get imageUrl from API. 
+                        DkApiResult dkResult = Helper.ImageLookUp(word);
+                        if (dkResult.total < 1)
+                        {
+                            throw new Exception("Number of images for this word is less than 1. Word: " + word);
+                        }
+                        else
+                        {
+                            imageUrl = dkResult.images[0].url;
+                        }
 
-                // get definition
-                JObject lmResult = Helper.DefinitionLookUpObj(fourWords[i]);
-                JToken lmEntry = (lmResult["Entries"]["Entry"] is JArray) ? lmResult["Entries"]["Entry"][0] : lmResult["Entries"]["Entry"];
-                JToken lmSense = (lmEntry["Sense"] is JArray) ? lmEntry["Sense"][0] : lmEntry["Sense"];
-                JToken lmDEF = lmSense["DEF"];
-                if (lmDEF == null)
-                {
-                    JToken lmSubsense = (lmSense["Subsense"] is JArray) ? lmSense["Subsense"][0] : lmSense["Subsense"];
-                    lmDEF = lmSubsense["DEF"];
-                }
-                definition = lmDEF["#text"].ToString();
+                        // get definition from API
+                        JObject lmResult = Helper.DefinitionLookUpObj(word);
+                        JToken lmEntry = (lmResult["Entries"]["Entry"] is JArray) ? lmResult["Entries"]["Entry"][0] : lmResult["Entries"]["Entry"];
+                        JToken lmSense = (lmEntry["Sense"] is JArray) ? lmEntry["Sense"][0] : lmEntry["Sense"];
+                        JToken lmDEF = lmSense["DEF"];
+                        if (lmDEF == null)
+                        {
+                            JToken lmSubsense = (lmSense["Subsense"] is JArray) ? lmSense["Subsense"][0] : lmSense["Subsense"];
+                            lmDEF = lmSubsense["DEF"];
+                        }
+                        definition = lmDEF["#text"].ToString();
 
-                // done. <Word, Definition, ImageUrl>
-                result.Add(new Tuple<string, string, string>(fourWords[i], definition, imageUrl));
+                        // cache it
+                        messi.ApiCaches.Add(new ApiCache()
+                        {
+                            Word = word,
+                            ImageUrl = imageUrl,
+                            Definition = definition
+                        });
+                        messi.SaveChanges();
+                    }
+                    // done. <Word, Definition, ImageUrl>
+                    result.Add(new Tuple<string, string, string>(word, definition, imageUrl));
+                }
             }
             return result;
         }
@@ -104,6 +126,7 @@ namespace Messi.Logic
             // avaliable game: 1) status is open; 2) not created/played by the given user; 3) has at least one round
             using (Models.Messi messi = new Models.Messi())
             {
+
                 Game anAvailableGame = messi.Games.FirstOrDefault(g => g.StatusId == 1
                                                                        && g.Rounds.Where(r => r.UserId == userId).FirstOrDefault() == null
                                                                        && g.Rounds.Count > 0);
