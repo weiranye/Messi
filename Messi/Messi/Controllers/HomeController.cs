@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Messi.Logic;
 using Messi.ViewModels;
 
 namespace Messi.Controllers
@@ -11,8 +12,8 @@ namespace Messi.Controllers
 
         public ActionResult Index()
         {
-            
-            if (GameLogic.IsGameAvailable(CurrentUserId))
+            var game = GameLogicObj.GetAndReserveGame(CurrentUserId);
+            if (game!=null)
             {
                 return View("Game");
             }

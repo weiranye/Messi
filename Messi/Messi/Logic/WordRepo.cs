@@ -82,7 +82,6 @@ namespace Messi.Logic
 "column",
 "company",
 "condition",
-"consonant",
 "continent",
 "copy",
 "corn",
