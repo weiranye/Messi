@@ -45,9 +45,10 @@ namespace Messi.Controllers
         }
 
         [HttpPost]
-        public void SaveData(FormCollection form)
+        public ActionResult SaveData(FormCollection form)
         {
             var test = "";
+            return View("Index");
         }
 
     }
