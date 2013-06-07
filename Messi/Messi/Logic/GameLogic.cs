@@ -11,7 +11,9 @@ namespace Messi.Logic
         // <Word, Definition, ImageUrl>
         public List<Tuple<string, string, string>> GetWordDefImageList()
         {
-            return null;
+            var worddefimage = new List<Tuple<string, string, string>>();
+            worddefimage.Add(Tuple.Create("test", "test", "http://www.petfinder.com/wp-content/uploads/2012/11/101418789-cat-panleukopenia-fact-sheet-632x475.jpg"));
+            return worddefimage;
         }
 
         // returns GameId
