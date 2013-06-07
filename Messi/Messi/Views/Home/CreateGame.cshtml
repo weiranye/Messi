@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "CreateGame";
+}
+
+<h2>CreateGame</h2>
+
+
+
+<div class="image-select-container">
+
+	<div>
+		Select the image you want to guess
+	</div>
+
+	<div class="image-container">
+	@{
+		for (var i = 0; i < 4; i++)
+		{
+			<div class="guess-image">
+				<div><img src="" /></div>
+				<div>Image Name</div>
+			</div>
+		}
+	}
+		<div class="clear-both"></div>
+	</div>
+
+
+</div>
+
+

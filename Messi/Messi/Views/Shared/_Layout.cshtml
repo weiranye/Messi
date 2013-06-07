@@ -7,6 +7,40 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+
+		<style>
+			.user-info {
+				background-color: #ccc;
+				height: 30px;
+			}
+			.user-name {
+				float: left;
+				padding: 5px;
+			}
+			.user-point {
+				float: right;
+				padding: 5px;
+				background-color: #ddd;
+			}
+			.image-select-container {
+				padding: 10px;
+				text-align: center;
+			}
+			.image-container {
+				width: 25%;
+			}
+			.guess-image {
+				float: left;
+			}
+
+
+
+
+			.clear-both {
+				clear: both;
+			}
+
+		</style>
     </head>
     <body>
         <header>
@@ -29,6 +63,13 @@
             </div>
         </header>
         <div id="body">
+		<!-- user name, flag, and point -->
+		@if (!Request.IsAuthenticated)
+		{
+			@Html.Partial("~/views/shared/_UserInfoPartial.cshtml")
+		}
+
+
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
