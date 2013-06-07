@@ -20,7 +20,7 @@ namespace Messi.Controllers
             else
             {
                 var result = GameLogic.GetWordDefImageList();
-                int id = 0;
+                int id = 1;
                 ListCreateGameViewModel createGames = new ListCreateGameViewModel()
                     {
                         CreateGameViewModels = result.Select(tuple => new CreateGameViewModel()
@@ -41,15 +41,24 @@ namespace Messi.Controllers
         {
             ListCreateGameViewModel createGames = (ListCreateGameViewModel)Session["CreateGames"];
             var createGame = createGames.CreateGameViewModels.FirstOrDefault(cg => cg.ImageId == id);
-            Session["CreateGame"] = createGame;
-            return PartialView("ShowDefinition", createGame);
+            var createGameObj = new CreateGameObject()
+                {
+                    SelectedImageUrl = createGame.ImageUrl,
+                    Word = createGame.Word,
+                    ImageUrl1 = (createGames.CreateGameViewModels.First(c=>c.ImageId==1)).ImageUrl,
+                    ImageUrl2 = (createGames.CreateGameViewModels.First(c => c.ImageId == 2)).ImageUrl,
+                    ImageUrl3 = (createGames.CreateGameViewModels.First(c => c.ImageId == 3)).ImageUrl,
+                    ImageUrl4 = (createGames.CreateGameViewModels.First(c => c.ImageId == 4)).ImageUrl,
+                };
+            Session["CreateGameObj"] = createGameObj;
+            return PartialView("ListenRecord", createGame);
         }
 
         [HttpPost]
         public ActionResult SaveData(FormCollection form)
         {
             var test = "";
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
     }
