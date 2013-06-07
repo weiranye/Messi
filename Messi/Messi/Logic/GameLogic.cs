@@ -104,11 +104,9 @@ namespace Messi.Logic
             // avaliable game: 1) status is open; 2) not created/played by the given user; 3) has at least one round
             using (Models.Messi messi = new Models.Messi())
             {
-                Game anAvailableGame = messi.Games.Where(g =>
-                    g.StatusId == 1
-                    && g.Rounds.Where(r => r.UserId == userId).FirstOrDefault() == null
-                    && g.Rounds.Count > 0
-                ).FirstOrDefault();
+                Game anAvailableGame = messi.Games.FirstOrDefault(g => g.StatusId == 1
+                                                                       && g.Rounds.Where(r => r.UserId == userId).FirstOrDefault() == null
+                                                                       && g.Rounds.Count > 0);
 
                 if (anAvailableGame != null)
                 {

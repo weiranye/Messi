@@ -9,7 +9,7 @@ namespace Messi.Controllers
     [Authorize]
     public class HomeController : BaseController
     {
-
+        [OutputCache(NoStore = true, Duration = 0)]
         public ActionResult Index()
         {
             var game = GameLogicObj.GetAndReserveGame(CurrentUserId);
@@ -31,7 +31,7 @@ namespace Messi.Controllers
                                 ImageId = id++
                             }).ToList()
                     };
-                TempData["CreateGames"] = createGames;
+                Session["CreateGames"] = createGames;
                 return View("CreateGame",createGames);
             }
         }
@@ -39,8 +39,9 @@ namespace Messi.Controllers
         [HttpPost]
         public ActionResult ShowDefinition(int id)
         {
-            ListCreateGameViewModel createGames = (ListCreateGameViewModel)TempData["CreateGames"];
+            ListCreateGameViewModel createGames = (ListCreateGameViewModel)Session["CreateGames"];
             var createGame = createGames.CreateGameViewModels.FirstOrDefault(cg => cg.ImageId == id);
+            Session["CreateGame"] = createGame;
             return PartialView("ShowDefinition", createGame);
         }
 
