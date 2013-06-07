@@ -64,7 +64,7 @@
         </header>
         <div id="body">
 		<!-- user name, flag, and point -->
-		@if (!Request.IsAuthenticated)
+		@if (Request.IsAuthenticated)
 		{
 			@Html.Partial("~/views/shared/_UserInfoPartial.cshtml")
 		}

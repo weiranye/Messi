@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Linq;
-using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using DotNetOpenAuth.AspNet;
 using Messi.ViewModels;
-using Microsoft.Web.WebPages.OAuth;
-using WebMatrix.WebData;
-using Messi.Filters;
-using Messi.Models;
 
 namespace Messi.Controllers
 {
@@ -45,7 +36,7 @@ namespace Messi.Controllers
                                select u).FirstOrDefault();
                     if (user != null)
                     {
-                        FormsAuthentication.SetAuthCookie(user.UserName+"|"+user.UserId,true);
+                        FormsAuthentication.SetAuthCookie(user.UserName+"|"+user.UserId,false);
                         return RedirectToLocal(returnUrl);
                     }
                 }

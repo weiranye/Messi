@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Messi.Logic;
 
 namespace Messi.Controllers
 {
     public class BaseController : Controller
     {
+        private readonly GameLogic _gameLogic=new GameLogic();
+        public GameLogic GameLogic
+        {
+            get { return _gameLogic; }
+        }
+
         public int CurrentUserId
         {
             get
