@@ -1,17 +1,43 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
+	<head>
+		<meta charset="utf-8" />
+		<title>@ViewBag.Title - My ASP.NET MVC Application</title>
+		<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<meta name="viewport" content="width=device-width" />
+		@*Styles.Render("~/Content/reset.css")*@
+		@*Scripts.Render("~/bundles/modernizr")*@
 
 		<style>
+			div {
+				font-family: Verdana;
+				font-size: 1.0em;
+
+				//border: 1px solid red;
+			}
+
+			button {
+				font-family: Verdana;
+				font-size: 1.2em;
+				color: #fff;
+				padding: 10px;
+				border: none;
+				background-color: #2AACE3;
+			}
+
+
+			.header {
+				margin: 10px;
+			}
+			.header a {
+				margin: 0 20px 0 20px;
+				text-decoration: none;
+				font-family: Verdana;
+				font-size: 1.2em;
+				color: #8EBCDE;
+			}
 			.user-info {
-				background-color: #ccc;
-				height: 30px;
+				background-color: #F2F2F2;
 			}
 			.user-name {
 				float: left;
@@ -19,20 +45,59 @@
 			}
 			.user-point {
 				float: right;
-				padding: 5px;
-				background-color: #ddd;
-			}
-			.image-select-container {
 				padding: 10px;
+				background-color: #BDCDD3;
+				color: #fff;
+				font-family: Verdana;
+				font-size: 1.6em;
+				font-weight: bold;
+			}
+			.main-content-area {
+				padding: 25px;
+			}
+
+
+
+
+
+
+			.image-select-container {
 				text-align: center;
 			}
 			.image-container {
-				width: 25%;
+				margin: 0 auto;
+				width: 50%;
 			}
 			.guess-image {
 				float: left;
+				width: 40%;
+				height: 150px;
+				background-color: #ccc;
+				border: none;
+				margin: 5%;
 			}
 
+
+
+			.record-section {
+				background-color: #F2F2F2;
+				padding: 20px;
+			}
+			.record-button-container {
+				float: left;
+				padding-right: 20px;
+			}
+			.read-sentence {
+				font-size: 1.2em;
+				line-height: 1.5em;
+			}
+			.record-result-section {
+				margin-top: 5px;
+				font-size: 1.2em;
+				line-height: 1.5em;
+				padding: 20px;
+				background-color: #F1FCFF;
+			}
 
 
 
@@ -40,9 +105,29 @@
 				clear: both;
 			}
 
+			/*****************/
+			.info-bar {
+				margin-top: 1px;
+				background-color: #F2F2F2;
+			}
+			.info-block {
+				text-align: center;
+				float: left;
+				padding: 5px 10px 5px 10px;
+				margin-right: 1px;
+			}
+			.small-title {
+				font-size: 0.6em;
+			}
+			.point-number {
+				font-size: 1.4em;
+				font-weight: bold;
+			}
+
 		</style>
     </head>
     <body>
+		<!--
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
@@ -62,19 +147,41 @@
                 </div>
             </div>
         </header>
-        <div id="body">
+		-->
+
+	@if (!Request.IsAuthenticated)
+	{
+		<div class="header">
+			<a href="@Url.Action("index", "home")"><img src="~/images/icon_app.png" align="center" /></a>
+			<a href="@Url.Action("index", "guess")">Guess</a>
+			<a href="@Url.Action("index", "game")">Create Game</a>
+			<a href="@Url.Action("index", "scoreboard")">Scoreboard</a>
+		</div>
+
 		<!-- user name, flag, and point -->
-		@if (!Request.IsAuthenticated)
-		{
-			@Html.Partial("~/views/shared/_UserInfoPartial.cshtml")
-		}
+		@Html.Partial("~/views/shared/_UserInfoPartial.cshtml")
+
+		@Html.Partial("~/views/shared/_GameInfoPartial.cshtml")
+	}
+
+
+		<!-- <div id="body"> -->
 
 
             @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
+
+			<!-- <section class="content-wrapper main-content clear-fix"> -->
+			<div class="main-content-area">
+				@RenderBody()
+			</div>
+                
+			
+			<!-- </section> -->
+
+        
+		<!-- </div> -->
+
+		<!--
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
@@ -82,8 +189,9 @@
                 </div>
             </div>
         </footer>
+		-->
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
+        @*Scripts.Render("~/bundles/jquery")*@
+        @*RenderSection("scripts", required: false)*@
     </body>
 </html>
