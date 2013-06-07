@@ -304,6 +304,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Messi.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Messi.swf" />
     <Content Include="Models\Messi.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Messi.edmx</DependentUpon>
