@@ -81,9 +81,14 @@ namespace Messi.Logic
             }
         }
 
-        public int AddRound(int gameId, int roundNum, int userId, string recognizedText)
+        public int AddRound(Round round)
         {
-            return 0;
+            using (Models.Messi messi = new Models.Messi())
+            {
+                messi.Rounds.Add(round);
+                messi.SaveChanges();
+                return round.RoundId;
+            }
         }
 
         public bool IsGameAvailable(int userId)
