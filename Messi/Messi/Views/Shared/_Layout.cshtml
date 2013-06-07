@@ -149,15 +149,15 @@
         </header>
 		-->
 
-	@if (!Request.IsAuthenticated)
+	@if (Request.IsAuthenticated)
 	{
 		<div class="header">
-			<a href="@Url.Action("index", "home")"><img src="~/images/icon_app.png" align="center" /></a>
-			<a href="@Url.Action("index", "guess")">Guess</a>
-			<a href="@Url.Action("index", "game")">Create Game</a>
-			<a href="@Url.Action("index", "scoreboard")">Scoreboard</a>
+			<a href=""><img src="~/images/icon_app.png" align="center" /></a>
+			<a href="">Guess</a>
+			<a href="">Create Game</a>
+			<a href="">Scoreboard</a>
 		</div>
-
+         @Html.Partial("_LoginPartial")
 		<!-- user name, flag, and point -->
 		@Html.Partial("~/views/shared/_UserInfoPartial.cshtml")
 

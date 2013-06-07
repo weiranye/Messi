@@ -19,61 +19,60 @@ var requiredRevision = 0;
 // -----------------------------------------------------------------------------
 // -->
 </script>
-</head>
 
-<body scroll="no">
+
 <script language="JavaScript" type="text/javascript">
 <!--
 // Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
-var hasProductInstall = DetectFlashVer(6, 0, 65);
+//var hasProductInstall = DetectFlashVer(6, 0, 65);
 
-// Version check based upon the values defined in globals
-var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+//// Version check based upon the values defined in globals
+//var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
 
-if ( hasProductInstall && !hasRequestedVersion ) {
-	// DO NOT MODIFY THE FOLLOWING FOUR LINES
-	// Location visited after installation is complete if installation is required
-	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-	var MMredirectURL = window.location;
-    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-    var MMdoctitle = document.title;
+//if ( hasProductInstall && !hasRequestedVersion ) {
+//	// DO NOT MODIFY THE FOLLOWING FOUR LINES
+//	// Location visited after installation is complete if installation is required
+//	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
+//	var MMredirectURL = window.location;
+//    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
+//    var MMdoctitle = document.title;
 
-	AC_FL_RunContent(
-		"src", "playerProductInstall",
-		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-		"width", "300",
-		"height", "300",
-		"align", "middle",
-		"id", "Messi",
-		"quality", "high",
-		"bgcolor", "#869ca7",
-		"name", "Messi",
-		"allowScriptAccess","sameDomain",
-		"type", "application/x-shockwave-flash",
-		"pluginspage", "http://www.adobe.com/go/getflashplayer"
-	);
-} else if (hasRequestedVersion) {
-	// if we've detected an acceptable version
-	// embed the Flash Content SWF when all tests are passed
-	AC_FL_RunContent(
-			"src", "Messi",
-			"width", "300",
-			"height", "300",
-			"align", "middle",
-			"id", "Messi",
-			"quality", "high",
-			"bgcolor", "#869ca7",
-			"name", "Messi",
-			"allowScriptAccess","sameDomain",
-			"type", "application/x-shockwave-flash",
-			"pluginspage", "http://www.adobe.com/go/getflashplayer"
-	);
-  } else {  // flash is too old or we can't detect the plugin
-    var alternateContent = 'Alternate HTML content should be placed here. '
-  	+ 'This content requires the Adobe Flash Player. '
-   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
-    document.write(alternateContent);  // insert non-flash content
-  }
+//	AC_FL_RunContent(
+//		"src", "playerProductInstall",
+//		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
+//		"width", "150",
+//		"height", "150",
+//		"align", "middle",
+//		"id", "Messi",
+//		"quality", "high",
+//		"bgcolor", "#869ca7",
+//		"name", "Messi",
+//		"allowScriptAccess","sameDomain",
+//		"type", "application/x-shockwave-flash",
+//		"pluginspage", "http://www.adobe.com/go/getflashplayer"
+//	);
+//} else if (hasRequestedVersion) {
+//	// if we've detected an acceptable version
+//	// embed the Flash Content SWF when all tests are passed
+//	AC_FL_RunContent(
+//			"src", "Messi",
+//			"width", "150",
+//			"height", "150",
+//			"align", "middle",
+//			"id", "Messi",
+//			"quality", "high",
+//			"bgcolor", "#869ca7",
+//			"name", "Messi",
+//			"allowScriptAccess","sameDomain",
+//			"type", "application/x-shockwave-flash",
+//			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+//	);
+//  } else {  // flash is too old or we can't detect the plugin
+//    var alternateContent = 'Alternate HTML content should be placed here. '
+//  	+ 'This content requires the Adobe Flash Player. '
+//   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
+//    document.write(alternateContent);  // insert non-flash content
+//  }
   
   function getTextForRec()
 {
@@ -96,9 +95,8 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 
     <div class="record-section">
         <div class="record-button-container">
-            <img src="~/images/button_record.png" />
             <div style="text-align: center;">
-                Record
+                <embed width="150" height="150" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" allowscriptaccess="sameDomain" name="Messi" bgcolor="#869ca7" quality="high" id="Messi" src="Messi.swf">
             </div>
         </div>
         <div class="read-sentence">
