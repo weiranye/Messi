@@ -194,6 +194,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\GameLogic.cs" />
+    <Compile Include="Logic\Helper.cs" />
+    <Compile Include="Logic\LmApiResultEntry.cs" />
+    <Compile Include="Logic\WordRepo.cs" />
     <Compile Include="Models\Game.cs">
       <DependentUpon>Messi.tt</DependentUpon>
     </Compile>
@@ -222,6 +225,7 @@
       <DependentUpon>Messi.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CreateGameViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
