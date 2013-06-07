@@ -13,4 +13,8 @@ namespace Messi.ViewModels
         public string Definition { get; set; }
 
     }
+    public class ListCreateGameViewModel
+    {
+        public List<CreateGameViewModel> CreateGameViewModels { get; set; } 
+    }
 }
