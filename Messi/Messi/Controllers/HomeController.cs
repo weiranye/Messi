@@ -13,6 +13,17 @@ namespace Messi.Controllers
 
         public ActionResult Index()
         {
+            // testing
+            //List<Tuple<string, string, string>> newGameObj = GameLogic.GetWordDefImageList();
+            GameLogic.AddGame(new CreateGameObject()
+            {
+                ImageUrl1 = "asdf",
+                ImageUrl2 = "asdf",
+                ImageUrl3 = "qwer",
+                ImageUrl4 = "1234",
+                SelectedImageUrl = "1234",
+                Word = "cat"
+            });
             return View();
         }
 
