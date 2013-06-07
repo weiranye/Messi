@@ -34,7 +34,7 @@ namespace MvcApplication1.Controllers
 		public RecognitionResult Post()
         {
 			//configure proxy so that I can see server requests in fiddler
-			GlobalProxySelection.Select = new WebProxy("127.0.0.1", 8888);
+			//GlobalProxySelection.Select = new WebProxy("127.0.0.1", 8888);
 
 			//fast and dirty - copy audio file from one stream to another
 			Stream audioData = new MemoryStream();
