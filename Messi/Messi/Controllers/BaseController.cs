@@ -7,7 +7,7 @@ namespace Messi.Controllers
     public class BaseController : Controller
     {
         private readonly GameLogic _gameLogic=new GameLogic();
-        public GameLogic GameLogic
+        public GameLogic GameLogicObj
         {
             get { return _gameLogic; }
         }

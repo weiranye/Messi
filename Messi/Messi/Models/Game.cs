@@ -22,6 +22,12 @@ namespace Messi.Models
     
         public int GameId { get; set; }
         public int StatusId { get; set; }
+        public string Word { get; set; }
+        public string ImageUrl1 { get; set; }
+        public string ImageUrl2 { get; set; }
+        public string ImageUrl3 { get; set; }
+        public string ImageUrl4 { get; set; }
+        public string SelectedImageUrl { get; set; }
     
         public virtual ICollection<Round> Rounds { get; set; }
         public virtual ICollection<UserPoint> UserPoints { get; set; }

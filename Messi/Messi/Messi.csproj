@@ -46,6 +46,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Reflection.Context" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -193,6 +194,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\GameLogic.cs" />
+    <Compile Include="Logic\Helper.cs" />
+    <Compile Include="Logic\LmApiResultEntry.cs" />
+    <Compile Include="Logic\WordRepo.cs" />
     <Compile Include="Models\Game.cs">
       <DependentUpon>Messi.tt</DependentUpon>
     </Compile>
