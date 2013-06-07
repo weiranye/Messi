@@ -63,14 +63,20 @@ namespace Messi.Logic
         // returns GameId
         public static int AddGame(CreateGameObject obj)
         {
-            using (Messi.Models.Messi db = new Models.Messi())
+            using (Models.Messi messi = new Models.Messi())
             {
                 Game newGame = new Game()
                 {
-                    StatusId = 1
+                    StatusId = 1,
+                    ImageUrl1 = obj.ImageUrl1,
+                    ImageUrl2 = obj.ImageUrl2,
+                    ImageUrl3 = obj.ImageUrl3,
+                    ImageUrl4 = obj.ImageUrl4,
+                    SelectedImageUrl = obj.SelectedImageUrl,
+                    Word = obj.Word
                 };
-                db.Games.Add(newGame);
-                db.SaveChanges();
+                messi.Games.Add(newGame);
+                messi.SaveChanges();
                 return newGame.GameId;
             }
         }
