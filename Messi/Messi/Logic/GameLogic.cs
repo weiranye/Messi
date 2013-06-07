@@ -7,9 +7,11 @@ using Messi.Models;
 
 namespace Messi.Logic
 {
-
     public class GameLogic
     {
+        // constants
+        public const int MAX_ROUNDS = 4;
+
         // <Word, Definition, ImageUrl>
         public static List<Tuple<string, string, string>> GetWordDefImageList()
         {
@@ -81,24 +83,48 @@ namespace Messi.Logic
             }
         }
 
+        // change Game status as well if adding the last round
         public int AddRound(Round round)
         {
             using (Models.Messi messi = new Models.Messi())
             {
                 messi.Rounds.Add(round);
+                if (round.RoundNum == MAX_ROUNDS)
+                {
+                    round.Game.StatusId = 3;
+                }
                 messi.SaveChanges();
                 return round.RoundId;
             }
         }
 
-        public bool IsGameAvailable(int userId)
+        // return null if no available game; otherwise, return the game and reserve it. 
+        public GameObject GetAndReserveGame(int userId)
         {
-            return false;
-        }
+            // avaliable game: 1) status is open; 2) not created/played by the given user; 3) has at least one round
+            using (Models.Messi messi = new Models.Messi())
+            {
+                Game anAvailableGame = messi.Games.Where(g =>
+                    g.StatusId == 1
+                    && g.Rounds.Where(r => r.UserId == userId).FirstOrDefault() == null
+                    && g.Rounds.Count > 0
+                ).FirstOrDefault();
 
-        public GameObject GetGame(int userId)
-        {
-            return null;
+                if (anAvailableGame != null)
+                {
+                    GameObject game = new GameObject()
+                    {
+                        GameId = anAvailableGame.GameId,
+                        RoundNum = anAvailableGame.Rounds.Max(r => r.RoundNum + 1),
+                        Text = anAvailableGame.Word
+                    };
+                    // reserve it
+                    anAvailableGame.StatusId = 2;
+                    messi.SaveChanges();
+                    return game;
+                }
+                else return null;
+            }
         }
     }
 
