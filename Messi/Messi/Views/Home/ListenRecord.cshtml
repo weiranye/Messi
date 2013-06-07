@@ -1,9 +1,10 @@
-﻿@{
+﻿@*@{
     ViewBag.Title = "Listenrecord";
 }
 
+*@
 
-
+@model Messi.ViewModels.CreateGameViewModel
 <div>
 	Listen, then record yourself saying the sentence.
 </div>
@@ -16,7 +17,7 @@
 		</div>
 	</div>
 	<div class="read-sentence">
-		The disease may be most easily transmitted to human beings by eating food contaminated with the brain, spinal cord, or digestive tract of infected carcasses.
+		@Html.Label(Model.Definition)
 	</div>
 	<div class="clear-both"></div>
 </div>

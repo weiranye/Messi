@@ -72,7 +72,7 @@
 				float: left;
 				width: 40%;
 				height: 150px;
-				background-color: #ccc;
+				/*background-color: #ccc;*/
 				border: none;
 				margin: 5%;
 			}
@@ -187,7 +187,8 @@
         </footer>
 		-->
 
-        @*Scripts.Render("~/bundles/jquery")*@
-        @*RenderSection("scripts", required: false)*@
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     </body>
 </html>

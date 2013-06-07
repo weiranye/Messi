@@ -1,24 +1,26 @@
-﻿@{
+﻿@model Messi.ViewModels.ListCreateGameViewModel
+@{
     ViewBag.Title = "CreateGame";
 }
 
 
 <div class="image-select-container">
-	<div>
-		Select the image you want to guess
-	</div>
-	<div class="image-container">
-	@{
-		for (var i = 0; i < 4; i++)
-		{
-			<div class="guess-image">
-				<img src="" />
-				<div class="image-name">Image</div>
-			</div>
-		}
-	}
-		<div class="clear-both"></div>
-	</div>
+    <div>
+        Select the image you want to guess
+    </div>
+    <div class="image-container">
+        @{
+            foreach (var createGameViewModel in Model.CreateGameViewModels)
+            {
+            <div class="guess-image">
+                @Ajax.ActionLink(" ", "ShowDefinition", new { id = createGameViewModel.ImageId }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "result" }, new { style = "background: url('" + Url.Content(createGameViewModel.ImageUrl) + "') no-repeat; float: right;width: 40%;height: 150px;border: none;margin: 5%;" })
+                <div class="image-name">@createGameViewModel.Word</div>
+            </div>
+            }
+        }
+        <div class="clear-both"></div>
+    </div>
+    <div id="result"></div>
 </div>
 
 
