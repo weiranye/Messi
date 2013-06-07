@@ -56,8 +56,8 @@ namespace Messi.Logic
                 }
                 definition = lmDEF["#text"].ToString();
 
-                // done
-                result.Add(new Tuple<string, string, string>(fourWords[i], imageUrl, definition));
+                // done. <Word, Definition, ImageUrl>
+                result.Add(new Tuple<string, string, string>(fourWords[i], definition, imageUrl));
             }
             return result;
         }
