@@ -1,0 +1,7 @@
+﻿@model Messi.ViewModels.CreateGameViewModel
+
+<form action="/home/SaveData" method="POST">
+    @Html.Label(Model.Definition)
+    @Html.TextBox("test")
+    <input type="submit" onclick="form.submit()"/>
+</form>

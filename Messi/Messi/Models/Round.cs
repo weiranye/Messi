@@ -18,6 +18,7 @@ namespace Messi.Models
         public int GameId { get; set; }
         public int RoundNum { get; set; }
         public int UserId { get; set; }
+        public string RecognizedText { get; set; }
     
         public virtual Game Game { get; set; }
         public virtual User User { get; set; }

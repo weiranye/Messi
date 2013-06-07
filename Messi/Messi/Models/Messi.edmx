@@ -33,6 +33,12 @@
           </Key>
           <Property Name="GameId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Word" Type="varchar(max)" Nullable="false" />
+          <Property Name="ImageUrl1" Type="varchar(max)" Nullable="false" />
+          <Property Name="ImageUrl2" Type="varchar(max)" Nullable="false" />
+          <Property Name="ImageUrl3" Type="varchar(max)" Nullable="false" />
+          <Property Name="ImageUrl4" Type="varchar(max)" Nullable="false" />
+          <Property Name="SelectedImageUrl" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Round">
           <Key>
@@ -42,16 +48,17 @@
           <Property Name="GameId" Type="int" Nullable="false" />
           <Property Name="RoundNum" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RecognizedText" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="varchar(max)" Nullable="false" />
-          <Property Name="Password" Type="varchar(max)" Nullable="false" />
-          <Property Name="DisplayName" Type="varchar(max)" Nullable="false" />
-          <Property Name="CountryName" Type="varchar(max)" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="UserPoint">
           <Key>
@@ -116,7 +123,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MessiModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Messi" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Games" EntityType="MessiModel.Game" />
           <EntitySet Name="Rounds" EntityType="MessiModel.Round" />
           <EntitySet Name="Users" EntityType="MessiModel.User" />
@@ -144,6 +151,12 @@
           </Key>
           <Property Name="GameId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="Word" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ImageUrl1" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ImageUrl2" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ImageUrl3" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ImageUrl4" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="SelectedImageUrl" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Rounds" Relationship="MessiModel.FK_Round_Game" FromRole="Game" ToRole="Round" />
           <NavigationProperty Name="UserPoints" Relationship="MessiModel.FK_UserPoint_Game" FromRole="Game" ToRole="UserPoint" />
         </EntityType>
@@ -155,6 +168,7 @@
           <Property Name="GameId" Type="Int32" Nullable="false" />
           <Property Name="RoundNum" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RecognizedText" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Game" Relationship="MessiModel.FK_Round_Game" FromRole="Round" ToRole="Game" />
           <NavigationProperty Name="User" Relationship="MessiModel.FK_Round_User" FromRole="Round" ToRole="User" />
         </EntityType>
@@ -163,10 +177,10 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Rounds" Relationship="MessiModel.FK_Round_User" FromRole="User" ToRole="Round" />
           <NavigationProperty Name="UserPoints" Relationship="MessiModel.FK_UserPoint_User" FromRole="User" ToRole="UserPoint" />
         </EntityType>
@@ -235,12 +249,18 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MessiModelStoreContainer" CdmEntityContainer="Messi">
+        <EntityContainerMapping StorageEntityContainer="MessiModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Games">
             <EntityTypeMapping TypeName="MessiModel.Game">
               <MappingFragment StoreEntitySet="Game">
                 <ScalarProperty Name="GameId" ColumnName="GameId" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Word" ColumnName="Word" />
+                <ScalarProperty Name="ImageUrl1" ColumnName="ImageUrl1" />
+                <ScalarProperty Name="ImageUrl2" ColumnName="ImageUrl2" />
+                <ScalarProperty Name="ImageUrl3" ColumnName="ImageUrl3" />
+                <ScalarProperty Name="ImageUrl4" ColumnName="ImageUrl4" />
+                <ScalarProperty Name="SelectedImageUrl" ColumnName="SelectedImageUrl" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -251,6 +271,7 @@
                 <ScalarProperty Name="GameId" ColumnName="GameId" />
                 <ScalarProperty Name="RoundNum" ColumnName="RoundNum" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RecognizedText" ColumnName="RecognizedText" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
