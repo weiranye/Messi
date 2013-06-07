@@ -189,10 +189,17 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RecognizeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ffmpeg\Converter.cs" />
+    <Compile Include="Helpers\ffmpeg\MediaFormat.cs" />
+    <Compile Include="Helpers\ffmpeg\Resource1.Designer.cs" />
+    <Compile Include="Helpers\GoogleSpeechApi.cs" />
+    <Compile Include="Helpers\PronunciationResult.cs" />
+    <Compile Include="Helpers\RecognitionResult.cs" />
     <Compile Include="Logic\GameLogic.cs" />
     <Compile Include="Logic\Helper.cs" />
     <Compile Include="Logic\LmApiResultEntry.cs" />
@@ -233,6 +240,7 @@
     <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AC_OETags.js" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -290,6 +298,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Helpers\ffmpeg\ffmpeg.exe" />
     <Content Include="Images\button_record.png" />
     <Content Include="Images\icon_app.png" />
     <EntityDeploy Include="Models\Messi.edmx">
@@ -367,6 +376,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Helpers\ffmpeg\Resource1.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
