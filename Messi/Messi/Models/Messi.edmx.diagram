@@ -4,15 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="06ec953b679e4763bcd0e4aa9e540e20" Name="Diagram1">
-        <EntityTypeShape EntityType="MessiModel.Game" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MessiModel.Round" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MessiModel.User" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MessiModel.UserPoint" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
-        <AssociationConnector Association="MessiModel.FK_Round_Game" ManuallyRouted="false" />
-        <AssociationConnector Association="MessiModel.FK_UserPoint_Game" ManuallyRouted="false" />
-        <AssociationConnector Association="MessiModel.FK_Round_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MessiModel.FK_UserPoint_User" ManuallyRouted="false" />
+      <Diagram DiagramId="eb895244ace64ee48f7495e87988739f" Name="Diagram1">
+        <EntityTypeShape EntityType="Messi.ApiCache" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Messi.Game" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Messi.Round" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Messi.User" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Messi.UserPoint" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="Messi.FK_Round_Game" ManuallyRouted="false" />
+        <AssociationConnector Association="Messi.FK_UserPoint_Game" ManuallyRouted="false" />
+        <AssociationConnector Association="Messi.FK_Round_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Messi.FK_UserPoint_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
