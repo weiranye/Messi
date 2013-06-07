@@ -158,9 +158,10 @@ namespace GoogleSpeechWebApiPoc
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
 
-			request.Proxy = new WebProxy("127.0.0.1", 8888); //null;//fast hack!
-
-            ServicePointManager.ServerCertificateValidationCallback +=
+			request.Proxy = null;//fast hack!
+			//request.Proxy = new WebProxy("127.0.0.1", 8888);
+            
+			ServicePointManager.ServerCertificateValidationCallback +=
                             delegate { return true; };
 
             request.Timeout = 16000;
