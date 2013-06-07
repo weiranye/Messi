@@ -197,6 +197,9 @@
     <Compile Include="Logic\Helper.cs" />
     <Compile Include="Logic\LmApiResultEntry.cs" />
     <Compile Include="Logic\WordRepo.cs" />
+    <Compile Include="Models\ApiCache.cs">
+      <DependentUpon>Messi.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Game.cs">
       <DependentUpon>Messi.tt</DependentUpon>
     </Compile>
@@ -287,12 +290,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\button_record.png" />
+    <Content Include="Images\icon_app.png" />
     <EntityDeploy Include="Models\Messi.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Messi.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Images\button_record.png" />
-    <Content Include="Images\icon_app.png" />
     <Content Include="Models\Messi.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Messi.edmx</DependentUpon>

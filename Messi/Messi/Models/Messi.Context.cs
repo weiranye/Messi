@@ -25,6 +25,7 @@ namespace Messi.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<ApiCache> ApiCaches { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Round> Rounds { get; set; }
         public DbSet<User> Users { get; set; }
