@@ -7,12 +7,13 @@ using System.Web.Mvc;
 
 namespace Messi.Controllers
 {
-    public class HomeController : Controller
+    [Authorize]
+    public class HomeController : BaseController
     {
-        [Authorize]
+        
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            
 
             List<Tuple<string, string, string>> newGameObj = GameLogic.GetWordDefImageList();
 
