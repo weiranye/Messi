@@ -36,7 +36,7 @@ namespace Messi.Controllers
             }
         }
 
-        [HttpPost]
+        //[HttpPost]
         public ActionResult ShowDefinition(int id)
         {
             ListCreateGameViewModel createGames = (ListCreateGameViewModel)Session["CreateGames"];

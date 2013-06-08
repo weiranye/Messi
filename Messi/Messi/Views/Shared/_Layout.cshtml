@@ -190,5 +190,16 @@
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
         <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script type="text/javascript">
+            function getTextForRec() {
+                //  	return document.getElementById("grammar").value;
+                return "Hello";
+              }
+
+              function setRecResult(recResult) {
+                  //return document.getElementById("recResult").value = recResult;
+                  $("#recResult").text = recResult;
+              }
+        </script>
     </body>
 </html>
